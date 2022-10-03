@@ -1,28 +1,34 @@
 let parent = document.querySelector(".parent");
 let serchInp = document.querySelector('#search');
 let dataInfo;
-
-
+let closeCard = document.querySelector(".closeCard");
+let workingArray;
 
 fetch("https://jsonplaceholder.typicode.com/posts")
 .then( apiData => apiData.json() )
 .then( readableData => {
-    dataInfo = readableData;
+    dataInfo = [...readableData];
+    workingArray = [...readableData];
     UpdateDom(readableData)
 })
 
-
+// search on change 
 serchInp.addEventListener('change',function(data){
     let filteredData = dataInfo.filter(searchOverData => searchOverData.title.includes(data.target.value))
+    workingArray = [...filteredData];
     UpdateDom(filteredData);
 })
 
+// dom update function
 function UpdateDom(ArrayOfData){
     parent.innerHTML = ``;
-    ArrayOfData.forEach(element => {
+    ArrayOfData.forEach((element,index) => {
         let template = `
             <div class="container">
-                <div class="container-id circle">${element.id}</div> 
+                <div class="inline">
+                    <div class="container-id circle">${element.id}</div> 
+                    <span data-index=${index} class="circle closeCard" id="cross" >X</span> 
+                </div> 
                 <div class="card-title">
                     ${element.title}
                 </div>
@@ -34,11 +40,13 @@ function UpdateDom(ArrayOfData){
     });
 }
 
-// function statememt
-// function vikas(){};
+// delete
+parent.addEventListener('click',function(data){
+    if(data.target.dataset.index){
+        dataInfo.splice(dataInfo.indexOf(workingArray[data.target.dataset.index]),1);
+        workingArray.splice(data.target.dataset.index,1)
+        UpdateDom(workingArray)  
+    }
+})
 
-// function expression
-// let vikas = function(){};
-
-// anonymous function
-// function(){}
+dragula([parent]);
