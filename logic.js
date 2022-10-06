@@ -10,6 +10,7 @@ fetch("https://jsonplaceholder.typicode.com/posts")
     dataInfo = [...readableData];
     workingArray = [...readableData];
     UpdateDom(readableData)
+    localStorageSet();
 })
 
 // search on change 
@@ -49,4 +50,11 @@ parent.addEventListener('click',function(data){
     }
 })
 
+// drag and drop in same container 
 dragula([parent]);
+
+function localStorageSet(){
+    localStorage.setItem('cardsArray', JSON.stringify(workingArray)) 
+    console.log(":: localStorage.getItem('cardsArray') :: ", JSON.parse(localStorage.getItem('cardsArray')));
+}
+
