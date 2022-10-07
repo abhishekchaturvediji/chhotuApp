@@ -55,6 +55,7 @@ dragula([parent]);
 
 function localStorageSet(){
     localStorage.setItem('cardsArray', JSON.stringify(workingArray)) 
-    console.log(":: localStorage.getItem('cardsArray') :: ", JSON.parse(localStorage.getItem('cardsArray')));
-}
-
+    // console.log(":: localStorage.getItem('cardsArray') :: ", JSON.parse(localStorage.getItem('cardsArray')));
+    // CRUD
+    //  
+}   
